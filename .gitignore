@@ -31,6 +31,6 @@ out/
 ### VS Code ###
 .vscode/
 
-.idea
+.idea/
 h2
-logs
+logs/
