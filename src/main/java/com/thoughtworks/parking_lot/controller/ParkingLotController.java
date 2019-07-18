@@ -59,4 +59,9 @@ public class ParkingLotController implements BaseController<ParkingLot, String> 
         return parkingLotService.parkCar(id, car);
     }
 
+    @PutMapping("/{id}/orders/{orderId}")
+    public Order fetchCar(@PathVariable String id, @PathVariable String orderId) throws Exception{
+        return parkingLotService.fetchCar(id, orderId);
+    }
+
 }

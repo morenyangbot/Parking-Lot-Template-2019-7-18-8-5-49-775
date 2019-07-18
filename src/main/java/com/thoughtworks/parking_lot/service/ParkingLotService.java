@@ -5,11 +5,13 @@ import com.thoughtworks.parking_lot.entity.Order;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
 import com.thoughtworks.parking_lot.repo.OrderRepository;
 import com.thoughtworks.parking_lot.repo.ParkingLotRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +29,13 @@ public class ParkingLotService implements BaseService<ParkingLot, String> {
             throw new RuntimeException("Parking lot full");
         }
         Order order = new Order(parkingLot, car);
+        return orderRepository.save(order);
+    }
+
+    public Order fetchCar(String id, String orderId) throws Exception {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setStatus(false);
+        order.setLeaveTime(new Date().getTime());
         return orderRepository.save(order);
     }
 
