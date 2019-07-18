@@ -1,0 +1,26 @@
+logging.file: logs/application.log
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+      hibernate: ERROR
+
+spring:
+#  flyway:
+#    enabled: true
+#    table: schema_version
+  datasource:
+    url: jdbc:h2:file:./h2/org
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+#    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+
+server:
+  port: 8090
