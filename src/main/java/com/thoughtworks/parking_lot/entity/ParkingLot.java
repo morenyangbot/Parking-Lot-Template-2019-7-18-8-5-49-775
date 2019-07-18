@@ -1,11 +1,10 @@
 package com.thoughtworks.parking_lot.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class ParkingLot {
@@ -23,7 +22,24 @@ public class ParkingLot {
     @Column(nullable = false)
     private Integer capacity;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PL_ID")
+    private List<Order> orders;
+
+    @JsonIgnore
+    public boolean isFull() {
+        return orders.stream().filter(Order::isStatus).count() >= capacity;
+    }
+
     public ParkingLot() {
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public String getId() {

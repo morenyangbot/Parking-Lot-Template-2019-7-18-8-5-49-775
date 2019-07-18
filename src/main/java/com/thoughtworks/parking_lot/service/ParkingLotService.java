@@ -1,6 +1,9 @@
 package com.thoughtworks.parking_lot.service;
 
+import com.thoughtworks.parking_lot.entity.Car;
+import com.thoughtworks.parking_lot.entity.Order;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
+import com.thoughtworks.parking_lot.repo.OrderRepository;
 import com.thoughtworks.parking_lot.repo.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,17 @@ public class ParkingLotService implements BaseService<ParkingLot, String> {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
+    public Order parkCar(String id, Car car) throws Exception {
+        ParkingLot parkingLot = parkingLotRepository.findById(id).orElseThrow(() -> new RuntimeException("Parking lot not found"));
+        if (parkingLot.isFull()) {
+            throw new RuntimeException("Parking lot full");
+        }
+        Order order = new Order(parkingLot, car);
+        return orderRepository.save(order);
+    }
 
     @Override
     public ParkingLot save(ParkingLot parkingLot) {
