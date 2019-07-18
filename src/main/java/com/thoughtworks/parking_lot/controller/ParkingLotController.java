@@ -3,7 +3,6 @@ package com.thoughtworks.parking_lot.controller;
 import com.thoughtworks.parking_lot.entity.Car;
 import com.thoughtworks.parking_lot.entity.Order;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
-import com.thoughtworks.parking_lot.service.OrderService;
 import com.thoughtworks.parking_lot.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,9 +19,6 @@ public class ParkingLotController implements BaseController<ParkingLot, String> 
     @Autowired
     private ParkingLotService parkingLotService;
 
-    @Autowired
-    private OrderService orderService;
-
     @Override
     public ParkingLot save(@RequestBody ParkingLot parkingLot) {
         return parkingLotService.save(parkingLot);
@@ -30,8 +26,7 @@ public class ParkingLotController implements BaseController<ParkingLot, String> 
 
     @Override
     public List<ParkingLot> findAll() {
-        List<ParkingLot> parkingLots = parkingLotService.findAll();
-        return parkingLots;
+        return parkingLotService.findAll();
     }
 
     @Override

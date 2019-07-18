@@ -5,7 +5,6 @@ import com.thoughtworks.parking_lot.entity.Order;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
 import com.thoughtworks.parking_lot.repo.OrderRepository;
 import com.thoughtworks.parking_lot.repo.ParkingLotRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
